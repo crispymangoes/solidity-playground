@@ -53,7 +53,13 @@ contract BitWiseVsArrays {
         return numbersArray32;
     }
 
-    function get32ArrayFromNumber() public view returns (uint32[8] memory) {
+    function get32ArrayFromNumber() public view returns (uint32[8] memory array) {
+        console.log("Howdy");
+        // So if you enforce that a 0 means the end of the array then you can break early.
+        for (uint8 i = 0; i < 8; i++) console.log(array[i]);
+        // for (uint256 i = 0; i < 8; i++) {
+        //     array[i] = uint32(numbersUint256 >> (32 * i)); //might need to do unchecked
+        // }
         return numbersUint256.convertTo32_8Array();
     }
 }
