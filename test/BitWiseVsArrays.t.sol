@@ -9,10 +9,12 @@ contract BitWiseVsArraysTest is Test {
 
     uint256[8] private valsArray256;
     uint32[8] private valsArray32;
+    uint32[] private valsDynamic32;
     uint256 private vals256;
 
     uint256[8] private valsArray256_;
     uint32[8] private valsArray32_;
+    uint32[] private valsDynamic32_;
     uint256 private vals256_;
 
     function setUp() public {
@@ -21,12 +23,20 @@ contract BitWiseVsArraysTest is Test {
         valsArray256 = [uint256(1), uint256(2), uint256(3), uint256(4), uint256(5), uint256(6), uint256(7), uint256(8)];
         valsArray32 = [uint32(1), uint32(2), uint32(3), uint32(4), uint32(5), uint32(6), uint32(7), uint32(8)];
 
+        valsDynamic32 = new uint32[](8);
+        valsDynamic32_ = new uint32[](8);
+        for (uint32 i = 0; i < 8; i++) {
+            valsDynamic32[i] = i + 1;
+            valsDynamic32_[i] = (i + 1) * 10;
+        }
+
         for (uint256 i = 1; i < 9; i++) {
             vals256 |= i << (32 * (i - 1));
         }
 
         con.setNumbersArray256(valsArray256);
         con.setNumbersArray32(valsArray32);
+        con.setDynamicArray32(valsDynamic32);
         con.setNumbersUint256(vals256);
 
         valsArray256 = [
@@ -54,6 +64,10 @@ contract BitWiseVsArraysTest is Test {
         con.setNumbersArray32(valsArray32_);
     }
 
+    function testSetDynamicArray32() external {
+        con.setDynamicArray32(valsDynamic32_);
+    }
+
     function testSetNumbersUint256() external {
         con.setNumbersUint256(vals256_);
     }
@@ -66,6 +80,10 @@ contract BitWiseVsArraysTest is Test {
         con.iterateNumbersArray32();
     }
 
+    function testIterateDynamicArray32() external {
+        con.iterateDynamicArray32();
+    }
+
     function testIterateNumbersUint256() external {
         con.iterateNumbersUint256();
     }
@@ -76,6 +94,10 @@ contract BitWiseVsArraysTest is Test {
 
     function testGet32Array() external {
         con.get32Array();
+    }
+
+    function testGetDynamic32Array() external {
+        con.getDynamic32Array();
     }
 
     function testGet32ArrayFromNumber() external {

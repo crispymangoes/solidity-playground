@@ -8,6 +8,7 @@ contract BitWiseVsArrays {
     using Uint256ToArrayLib for uint256;
     uint256[8] public numbersArray256;
     uint32[8] public numbersArray32;
+    uint32[] public dynamicArray32;
     uint256 public numbersUint256;
 
     function setNumbersArray256(uint256[8] memory _vals) public {
@@ -16,6 +17,10 @@ contract BitWiseVsArrays {
 
     function setNumbersArray32(uint32[8] memory _vals) public {
         numbersArray32 = _vals;
+    }
+
+    function setDynamicArray32(uint32[] memory _vals) public {
+        dynamicArray32 = _vals;
     }
 
     function setNumbersUint256(uint256 _vals) public {
@@ -38,6 +43,14 @@ contract BitWiseVsArrays {
         }
     }
 
+    function iterateDynamicArray32() public view returns (uint256 sum) {
+        uint32[] memory memDynamicArray32 = dynamicArray32;
+
+        for (uint256 i = 0; i < 8; i++) {
+            sum += memDynamicArray32[i];
+        }
+    }
+
     function iterateNumbersUint256() public view returns (uint256 sum) {
         uint256 memNumberUint256 = numbersUint256;
         for (uint256 i = 0; i < 8; i++) {
@@ -51,6 +64,10 @@ contract BitWiseVsArrays {
 
     function get32Array() public view returns (uint32[8] memory) {
         return numbersArray32;
+    }
+
+    function getDynamic32Array() public view returns (uint32[] memory) {
+        return dynamicArray32;
     }
 
     function get32ArrayFromNumber() public view returns (uint32[8] memory array) {
